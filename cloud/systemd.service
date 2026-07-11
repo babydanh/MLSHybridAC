@@ -1,0 +1,58 @@
+[Unit]
+Description=VNAC ML Inference Server
+Documentation=https://github.com/babydanh/MLSHybridAC
+After=network.target
+
+[Service]
+Type=simple
+User=acml
+Group=acml
+WorkingDirectory=/opt/ac-ml
+
+# Environment
+Environment=ML_HOST=127.0.0.1
+Environment=ML_PORT=8080
+Environment=ML_WORKERS=1
+Environment=ML_MAX_CONCURRENCY=16
+Environment=ML_DATA_DIR=/opt/ac-ml/data
+Environment=ML_DB_PATH=/opt/ac-ml/data/vnac.db
+Environment=ML_LOG_LEVEL=INFO
+Environment=ML_LOG_JSON=true
+Environment=ML_ADMIN_KEY=CHANGE_ME_IN_PRODUCTION
+Environment=ML_MODEL_TTL=300
+
+ExecStart=/opt/ac-ml/venv/bin/uvicorn cloud.server:app \
+    --host 127.0.0.1 \
+    --port 8080 \
+    --workers 1 \
+    --limit-concurrency 16 \
+    --max-requests 10000 \
+    --timeout-keep-alive 5
+
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=5
+
+# Resource limits (1GB RAM budget)
+MemoryMax=900M
+MemoryHigh=800M
+CPUQuota=80%
+LimitNOFILE=4096
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ReadWritePaths=/opt/ac-ml/data
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictRealtime=true
+SystemCallFilter=@system-service
+
+[Install]
+WantedBy=multi-user.target

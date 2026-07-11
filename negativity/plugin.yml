@@ -1,0 +1,71 @@
+name: Negativity
+main: com.elikill58.negativity.spigot.SpigotNegativity
+version: "1.14"
+author: [Elikill58, RedNesto]
+description: It's an Advanced AntiCheat Detection, by Elikill58.
+api-version: 1.13
+softdepend: [ProtocolLib, Essentials, WorldGuard, GadgetsMenu, MaxBans, AdvancedBan, LiteBans, ViaVersion, ProtocolSupport, floodgate-bukkit, floodgate]
+
+commands:
+  negativity:
+    description: See all informations about a player and start verif
+    permission: negativity.negativity
+    aliases: [n, neg]
+  nreport:
+    description: Report a player
+    permission: negativity.report
+    aliases: [report]
+  nban:
+    description: Ban a player
+    permission: negativity.ban
+    aliases: [ban]
+  nunban:
+    description: Unban a player
+    permission: negativity.unban
+    aliases: [unban]
+  nkick:
+    description: Kick a player
+    permission: negativity.kick
+    aliases: [kick]
+  nmod:
+    description: Option for mod
+    permission: negativity.mod
+    aliases: [mod]
+  nlang:
+    description: Language management
+    permission: negativity.lang
+    aliases: [lang]
+
+permissions:
+  negativity.*:
+    description: Gives access to everything.
+    children:
+      negativity.negativity: true
+      negativity.report: true
+      negativity.ban: true
+      negativity.unban: true
+      negativity.kick: true
+      negativity.mod: true
+      negativity.verif: true
+      negativity.alert: true
+      negativity.mod: true
+      negativity.managecheat: true
+      negativity.reportwait: true
+  negativity.negativity:
+    description: See all informations about a player and start verif
+    default: op
+  negativity.report:
+    description: Report a player
+    default: op
+  negativity.ban:
+    description: Ban a player
+    default: op
+  negativity.unban:
+    description: Unban a player
+    default: op
+  negativity.kick:
+    description: Kick a player
+    default: op
+  negativity.mod:
+    description: Option for mod
+    default: op
