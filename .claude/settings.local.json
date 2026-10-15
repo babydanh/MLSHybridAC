@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone *)",
+      "Bash(./gradlew :common:compileJava -x test)",
+      "Bash(./gradlew :common:build)",
+      "Bash(jar tf *)",
+      "Read(//d//**)",
+      "Read(//c/Users/**)",
+      "Read(//c//**)",
+      "WebFetch(domain:github.com)",
+      "Bash(git submodule *)"
+    ]
+  }
+}
